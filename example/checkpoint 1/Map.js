@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import mapmagic from 'mapmagic-gl'
-import '../styles/map.css'
+import '../styles/map.css' // add this line
 import '../../node_modules/mapmagic-gl/dist/mapmagic-gl.css'
 
-let map
+let map // add this line
 let pins = [
   {
     lng: 98.97,
@@ -27,10 +27,12 @@ class Map extends Component {
     pins: pins,
   }
 
+  // add this function
   componentDidMount = () => {
     this.renderMap()
   }
 
+  // add this function
   renderMap = () => {
     const { pins } = this.state
     map = new mapmagic.Map({
