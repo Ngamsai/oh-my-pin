@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import ShareFacebook from './ShareFacebook'
-import loginFacebookService from './loginFacebookService'
+import loginFacebookService from '../libs/loginFacebookService'
 
 class FormPin extends Component {
   state = {
