@@ -28,7 +28,7 @@ class FormPin extends Component {
   addPinToService = () => {
     const { createdBy, namePlace } = this.state
     const { lng, lat } = this.props
-    axios.post('http://localhost:4000/add-pin',
+    axios.post('http://128.199.230.111:4000/add-pin',
       {
         namePlace,
         createdBy,
@@ -83,43 +83,44 @@ class FormPin extends Component {
           <ShareFacebook />
           {!this.state.loginStatus &&  <button className="bt-social" onClick={() => this.loginFacebook()}>Login with Facebook</button>}
         </div>
-        {!addPoint ?
-          <div style={{ marginTop: 20 }} >
-            <button
-              className='bt-add-point'
-              onClick={() => this.getLocation()}
-            >
-              เพิ่มจุดของเรา
-          </button>
+
+        <div className='from-add-marker' >
+          <div>
+            <div className="label" >Your name</div>
+            <input type='text' value={createdBy} onChange={this.changecreatedBy} disabled={this.state.loginStatus} />
           </div>
-
-          :
-
-          <div className='from-add-marker' >
-            <div>
-              <div className="label" >Your name</div>
-              <input type='text' value={createdBy} onChange={this.changecreatedBy} disabled={this.state.loginStatus}/>
-            </div>
-            <div>
-              <div className="label" >Name place</div>
-              <input type='text' value={namePlace} onChange={this.changeNamePlace} />
-            </div>
-            <div>
-              <div className="label" >lng , lat</div>
-              <input type='text' value={`${lng}, ${lat}`} readOnly />
-            </div>
-            <br />
-            <div>
-              <button
-                onClick={() => this.createMarker()}
-                disabled={createdBy && namePlace ? false : true}
-              >
-                เพิ่มจุด
-              </button>
-            </div>
+          <div>
+            <div className="label" >Name place</div>
+            <input type='text' value={namePlace} onChange={this.changeNamePlace} />
           </div>
+          <div>
+            <div className="label" >lng , lat</div>
+            <input type='text' value={`${lng}, ${lat}`} readOnly />
+          </div>
+          <br />
+          <div>
 
-        }
+
+            {
+              this.state.addPoint ?
+                <button
+                  onClick={() => this.createMarker()}
+                  disabled={createdBy && namePlace ? false : true}
+                >
+                  เพิ่มจุด
+                </button>
+                :
+                <button
+                  className='bt-add-point'
+                  onClick={() => this.getLocation()}
+                >
+                  เพิ่มจุดของเรา
+                </button>
+            }
+
+          </div>
+        </div>
+        
       </div>
     )
   }

@@ -36,7 +36,7 @@ class Map extends Component {
   }
 
   getPinFormService = async () => {
-    await axios.get('http://localhost:4000/get-pins')
+    await axios.get('http://128.199.230.111:4000/get-pins')
       .then(async (res) => {
         this.setState({
           pins: res.data
