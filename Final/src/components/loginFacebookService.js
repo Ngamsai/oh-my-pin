@@ -1,4 +1,3 @@
-import React, { Component } from 'react'
 import firebase from 'firebase'
 
 const config = {
@@ -9,17 +8,13 @@ const config = {
   storageBucket: "workshop-react-5b39b.appspot.com",
   messagingSenderId: "348863848626",
 }
-const fire = firebase.initializeApp(config)
+firebase.initializeApp(config)
 
-const login = () => {
+const loginFacebookService = () => {
   var provider = new firebase.auth.FacebookAuthProvider();
   provider.addScope('user_birthday');
-  firebase.auth().signInWithPopup(provider).then(function (result) {
-    var token = result.credential.accessToken
-    var user = result.user
-  });
+  return firebase.auth().signInWithPopup(provider)
 }
 
-const LoginButton = () => <button className="bt-social" onClick={() => login()}>Login with Facebook</button>
 
-export default LoginButton
+export default loginFacebookService

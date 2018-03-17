@@ -1,17 +1,18 @@
 import React, { Component } from 'react'
 import axios from 'axios'
-import SocailLogin from './SocailLogin'
+import ShareFacebook from './ShareFacebook'
+import loginFacebookService from './loginFacebookService'
 
 class FormPin extends Component {
   state = {
     addPoint: false,
     createdBy: '',
     namePlace: '',
+    loginStatus: false,
   }
 
   componentWillReceiveProps = (nextProps) => {
     this.setState({
-      createdBy: '',
       namePlace: '',
     })
   }
@@ -56,7 +57,6 @@ class FormPin extends Component {
     this.props.createMarker(data)
     this.addPinToService()
     this.setState({
-      createdBy: '',
       namePlace: '',
     })
   }
@@ -66,13 +66,22 @@ class FormPin extends Component {
     this.props.getLocation()
   }
 
+  loginFacebook = async () => {
+    const dataUserFacebook = await loginFacebookService()
+    this.setState({
+      createdBy: dataUserFacebook.user.displayName,
+      loginStatus: true
+    })
+  }
+
   render() {
     const { lng, lat } = this.props
     const { createdBy, namePlace, addPoint } = this.state
     return (
       <div className='form-layout' >
         <div>
-          <SocailLogin />
+          <ShareFacebook />
+          {!this.state.loginStatus &&  <button className="bt-social" onClick={() => this.loginFacebook()}>Login with Facebook</button>}
         </div>
         {!addPoint ?
           <div style={{ marginTop: 20 }} >
@@ -89,7 +98,7 @@ class FormPin extends Component {
           <div className='from-add-marker' >
             <div>
               <div className="label" >Your name</div>
-              <input type='text' value={createdBy} onChange={this.changecreatedBy} />
+              <input type='text' value={createdBy} onChange={this.changecreatedBy} disabled={this.state.loginStatus}/>
             </div>
             <div>
               <div className="label" >Name place</div>
